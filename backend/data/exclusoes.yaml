@@ -1,0 +1,44 @@
+# Apólice RC-DC 550 00016965 — mercadorias excluídas.
+# Match = elegibilidade RECUSADA com motivo EXCLUSAO_APOLICE.
+# `termos` são as expressões buscadas na descrição do anúncio pelo matcher determinístico.
+exclusoes:
+  - item: "animais vivos"
+    termos: ["animais vivos", "animal vivo", "gado vivo", "aves vivas", "semoventes"]
+  - item: "armas, armamentos e munições"
+    termos: ["arma", "armas", "armamento", "munição", "munições", "explosivo"]
+  - item: "cargas radioativas"
+    termos: ["radioativa", "radioativo", "material nuclear", "urânio"]
+  - item: "cigarros"
+    termos: ["cigarro", "cigarros", "tabaco", "fumo"]
+  - item: "dinheiro, cheques, títulos, bilhetes de loteria"
+    termos: ["dinheiro", "numerário", "cheque", "cheques", "títulos", "bilhete de loteria", "bilhetes de loteria"]
+  - item: "documentos em geral"
+    termos: ["documento", "documentos"]
+  - item: "estanho"
+    termos: ["estanho"]
+  - item: "mercadorias em mãos de portador"
+    termos: ["mãos de portador", "maos de portador"]
+  - item: "metais semipreciosos e preciosos e suas ligas"
+    termos: ["ouro", "prata", "platina", "metal precioso", "metais preciosos", "metais semipreciosos", "lingote"]
+  - item: "molibdênio"
+    termos: ["molibdênio", "molibdenio"]
+  - item: "nióbio"
+    termos: ["nióbio", "niobio"]
+  - item: "níquel"
+    termos: ["níquel", "niquel"]
+  - item: "objetos e obras de arte"
+    termos: ["obra de arte", "obras de arte", "objeto de arte", "quadro de arte", "escultura"]
+  - item: "raridades e coleções"
+    termos: ["raridade", "raridades", "coleção", "colecionável", "colecionáveis"]
+  - item: "papel moeda"
+    termos: ["papel moeda", "papel-moeda", "cédula", "cédulas"]
+  - item: "pedras preciosas, semipreciosas, joias e pérolas"
+    termos: ["pedra preciosa", "pedras preciosas", "pedras semipreciosas", "joia", "joias", "jóia", "jóias", "pérola", "pérolas", "diamante"]
+  - item: "relógios"
+    termos: ["relógio", "relógios", "relogio", "relogios"]
+  - item: "veículos rodando"
+    termos: ["veículo rodando", "veículos rodando", "carro rodando", "veiculo rodando"]
+
+# Regra adicional de exclusão (fora do matcher de descrição):
+# CT-e emitido como serviço SUBCONTRATADO (JCN como subcontratada) = sem cobertura.
+regra_subcontratacao: "CT-e emitido como serviço subcontratado (JCN como subcontratada) não tem cobertura da apólice"

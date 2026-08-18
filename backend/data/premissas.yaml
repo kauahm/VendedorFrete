@@ -1,0 +1,30 @@
+tabela_antt: "A"  # A = composicao completa, B = so veiculo
+colchao_agregado: 0.0  # 0% = piso seco
+impostos_taxas_seguro: 0.23  # bloco unico: impostos + taxas + seguro (NAO somar seguro separado)
+lucro_minimo_viagem: 800  # R$ - piso absoluto por viagem
+margem_minima: 0.20
+margem_alvo: 0.25
+margem_maxima: 0.30
+
+fatores_faixa_distancia:
+  - { de: 0, ate: 100, fator: 1.35, nome: "curta" }
+  - { de: 101, ate: 400, fator: 1.15, nome: "regional" }
+  - { de: 401, ate: 800, fator: 1.05, nome: "media" }
+  - { de: 801, ate: 99999, fator: 1.00, nome: "longa" }
+
+corte_dedicado_fracao: 0.70  # VALIDAR com o dono: acima disso a carga vira dedicada
+
+densidade_estimada_kg_m3: 300  # VALIDAR: usado so quando a cubagem nao vem no anuncio
+confianca_classificador_deterministico: 0.85  # VALIDAR: confianca do matcher sem IA
+
+# Seguro / apolice
+lmg_maximo: 1000000  # R$ por embarque/veiculo/viagem
+apolice_numero: "550 00016965"
+apolice_vigencia_fim: "2027-05-11"
+seguradora: "Tokio Marine"
+
+faixas_gr:
+  - { faixa: "A", de: 0, ate: 130000, exigencias: ["rastreamento"] }
+  - { faixa: "B", de: 130001, ate: 400000, exigencias: ["rastreamento", "ACL"] }
+  - { faixa: "C", de: 400001, ate: 800000, exigencias: ["rastreamento", "ACL", "isca", "escolta"] }
+  - { faixa: "D", de: 800001, ate: 1000000, exigencias: ["plano_gr_completo"] }

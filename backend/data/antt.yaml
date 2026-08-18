@@ -1,0 +1,23 @@
+# Resolucao ANTT no 5.867/2020, atualizada pela Res. ANTT no 6.084/2026
+# Fonte: calculadorafrete.antt.gov.br (consultado 17/07/2026)
+# ATUALIZAR a cada revisao da ANTT (jan/jul)
+
+piso_base_km: 6.368  # referencia de piso por km (nao entra na formula atual do motor)
+
+tabela_a:  # composicao completa (cavalo + implemento)
+  2: { ccd: 3.9826, cc: 451.84, veiculo: "3/4 / Toco" }
+  3: { ccd: 5.0977, cc: 541.86, veiculo: "Truck" }
+  4: { ccd: 5.7822, cc: 588.86, veiculo: "Bi Truck" }
+  5: { ccd: 6.6718, cc: 657.56, veiculo: "Carreta Simples" }
+  6: { ccd: 7.3547, cc: 671.93, veiculo: "Carreta LS" }
+  7: { ccd: 8.0927, cc: 831.66, veiculo: "Bitrem" }
+  9: { ccd: 9.2027, cc: 903.32, veiculo: "Rodotrem" }
+
+tabela_b:  # so veiculo automotor
+  2: { ccd: 5.218, cc: 533.40 }
+  3: { ccd: 5.218, cc: 533.40 }
+  4: { ccd: 5.218, cc: 533.40 }
+  5: { ccd: 5.9334, cc: 594.62 }
+  6: { ccd: 6.6063, cc: 608.99 }
+  7: { ccd: 7.0381, cc: 720.31 }
+  9: { ccd: 7.8292, cc: 773.22 }

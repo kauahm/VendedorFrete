@@ -1,0 +1,87 @@
+# Lotação e cubagem = valores conservadores (menor entre planilha e PDF).
+# VALIDAR com o dono: confirmar com a rede real de agregados.
+veiculos:
+  - nome: "Caminhão 3/4"
+    ordem: 1
+    eixos: 2
+    cubagem_m3: 21.65
+    lotacao_kg: 2500  # PDF baú (planilha tinha 3000 - usar o menor)
+    pallets_max: 6
+    comprimento_m: 4.1
+    largura_m: 2.2
+    altura_m: 2.4
+    carroceria: "baú"
+
+  - nome: "Caminhão Toco"
+    ordem: 2
+    eixos: 2
+    cubagem_m3: 36.43  # PDF baú
+    lotacao_kg: 5000   # PDF baú (planilha tinha 6000)
+    pallets_max: 12
+    comprimento_m: 6.9
+    largura_m: 2.2
+    altura_m: 2.4
+    carroceria: "sider"
+
+  - nome: "Caminhão Truck"
+    ordem: 3
+    eixos: 3
+    cubagem_m3: 46.88
+    lotacao_kg: 8000   # PDF trucado baú (planilha tinha 12000)
+    pallets_max: 14
+    comprimento_m: 7.5
+    largura_m: 2.5
+    altura_m: 2.5
+    carroceria: "sider"
+
+  - nome: "Bi Truck"
+    ordem: 4
+    eixos: 4
+    cubagem_m3: 78.75
+    lotacao_kg: 20000
+    pallets_max: 18
+    carroceria: "sider"
+
+  - nome: "Carreta Simples"
+    ordem: 5
+    eixos: 5
+    cubagem_m3: 100.0  # VALIDAR
+    lotacao_kg: 25000
+    pallets_max: 26
+    comprimento_m: 14.8
+    largura_m: 2.5
+    altura_m: 4.1
+    carroceria: "sider"
+
+  - nome: "Carreta LS"
+    ordem: 6
+    eixos: 6
+    cubagem_m3: 110.0  # VALIDAR
+    lotacao_kg: 32000
+    pallets_max: 28
+    comprimento_m: 14.8
+    largura_m: 2.5
+    altura_m: 4.1
+    carroceria: "sider"
+
+  - nome: "Bitrem 7 eixos"
+    ordem: 7
+    eixos: 7
+    cubagem_m3: 111.21  # PDF (planilha tinha 202.95 - INFLADA)
+    lotacao_kg: 57000
+    pallets_max: 42
+    comprimento_m: 19.8
+    largura_m: 2.5
+    altura_m: 3.0
+    carroceria: "sider"
+
+  - nome: "Rodotrem 9 eixos"
+    ordem: 8
+    eixos: 9
+    cubagem_m3: 151.65  # PDF (planilha tinha 307.50 - INFLADA)
+    lotacao_kg: 74000
+    pallets_max: 52
+    comprimento_m: 30.0
+    largura_m: 2.5
+    altura_m: 4.5
+    carroceria: "sider"

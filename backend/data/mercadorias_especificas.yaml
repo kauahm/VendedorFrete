@@ -1,0 +1,31 @@
+# VALIDAR com o dono: lista não vem da apólice transcrita, foi montada a partir das
+# categorias usuais de gerenciamento de risco. Revisar item a item com a corretora.
+# Mercadoria coberta, porém com regras adicionais de GR (escolta, isca, checklist).
+mercadorias_especificas:
+  - item: "eletrônicos e informática"
+    termos: ["eletrônico", "eletrônicos", "eletronico", "celular", "celulares", "smartphone", "notebook", "computador", "informática", "tablet", "televisor", "tv", "monitor"]
+    exigencias: ["rastreamento", "isca"]
+  - item: "eletrodomésticos"
+    termos: ["eletrodoméstico", "eletrodomesticos", "geladeira", "fogão", "micro-ondas", "lavadora"]
+    exigencias: ["rastreamento"]
+  - item: "medicamentos e produtos farmacêuticos"
+    termos: ["medicamento", "medicamentos", "farmacêutico", "farmaceutico", "fármaco", "remédio"]
+    exigencias: ["rastreamento", "isca"]
+  - item: "bebidas alcoólicas"
+    termos: ["bebida alcoólica", "bebidas alcoólicas", "cerveja", "whisky", "vodka", "destilado", "vinho"]
+    exigencias: ["rastreamento"]
+  - item: "cosméticos e perfumaria"
+    termos: ["cosmético", "cosméticos", "perfume", "perfumaria"]
+    exigencias: ["rastreamento"]
+  - item: "autopeças e pneus"
+    termos: ["autopeça", "autopeças", "pneu", "pneus", "peças automotivas"]
+    exigencias: ["rastreamento"]
+  - item: "produtos químicos e defensivos"
+    termos: ["produto químico", "produtos químicos", "defensivo", "agroquímico", "tinta", "solvente"]
+    exigencias: ["rastreamento", "checklist_quimico"]
+  - item: "carga refrigerada"
+    termos: ["refrigerada", "refrigerado", "frigorificada", "congelado", "resfriado"]
+    exigencias: ["rastreamento", "controle_temperatura"]
+  - item: "cargas indivisíveis e excedentes"
+    termos: ["indivisível", "superdimensionada", "excedente", "aet"]
+    exigencias: ["aet", "escolta"]
