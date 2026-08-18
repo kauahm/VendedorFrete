@@ -86,6 +86,8 @@ def premissas() -> dict[str, Any]:
             "maxima": params.margem_maxima,
         },
         "corte_dedicado_fracao": params.corte_dedicado_fracao,
+        "folga_maximo_sobre_minimo": params.folga_maximo_sobre_minimo,
+        "mercadorias_especificas_validadas": params.mercadorias_especificas_validadas,
         "lmg_maximo": params.lmg_maximo,
         "apolice": {
             "numero": params.apolice_numero,

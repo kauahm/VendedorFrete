@@ -1,6 +1,11 @@
-# VALIDAR com o dono: lista não vem da apólice transcrita, foi montada a partir das
-# categorias usuais de gerenciamento de risco. Revisar item a item com a corretora.
-# Mercadoria coberta, porém com regras adicionais de GR (escolta, isca, checklist).
+# NAO-VALIDADO: esta lista nao veio da apolice. Foi montada a partir de categorias usuais
+# de gerenciamento de risco e aguarda revisao item a item com a corretora.
+#
+# Enquanto premissas.yaml tiver `mercadorias_especificas_validadas: false`, nada aqui
+# alimenta decisao de elegibilidade - um match so gera aviso para conferencia manual.
+# NAO virar o flag para true em producao antes da revisao com a corretora.
+#
+# Mercadoria coberta, porem com regras adicionais de GR (escolta, isca, checklist).
 mercadorias_especificas:
   - item: "eletrônicos e informática"
     termos: ["eletrônico", "eletrônicos", "eletronico", "celular", "celulares", "smartphone", "notebook", "computador", "informática", "tablet", "televisor", "tv", "monitor"]

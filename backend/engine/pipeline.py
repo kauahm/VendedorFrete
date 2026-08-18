@@ -67,6 +67,7 @@ def processar_oportunidade(
         cotacao = calcular_frete(carga, params)
 
     alertas = list(cotacao.alertas) if cotacao else []
+    alertas.extend(elegibilidade.avisos)
     if faltando:
         alertas.append(f"Campos ausentes para cotar: {', '.join(faltando)}")
 

@@ -65,6 +65,17 @@ def test_premissas_comerciais(params):
     assert (params.margem_minima, params.margem_alvo, params.margem_maxima) == (0.20, 0.25, 0.30)
     assert params.lmg_maximo == 1_000_000
     assert params.colchao_agregado == 0.0
+    assert params.folga_maximo_sobre_minimo == 0.05
+
+
+def test_corte_dedicado_confirmado_pelo_dono(params):
+    """0,70 é decisão do dono do negócio, não hipótese pendente."""
+    assert params.corte_dedicado_fracao == 0.70
+
+
+def test_mercadorias_especificas_seguem_nao_validadas(params):
+    """Enquanto a corretora não revisar a lista, ela não pode alimentar elegibilidade."""
+    assert params.mercadorias_especificas_validadas is False
 
 
 @pytest.mark.parametrize(

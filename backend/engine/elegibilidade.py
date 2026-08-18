@@ -3,6 +3,10 @@
 Tudo determinístico. A classificação de mercadoria aceita um classificador
 injetado (a versão com IA entra na semana 2); o padrão é um matcher de termos
 contra data/exclusoes.yaml e data/mercadorias_especificas.yaml.
+
+A lista de mercadorias específicas está NÃO-VALIDADA: enquanto
+`mercadorias_especificas_validadas` for false em premissas.yaml, um match nela
+não muda status nem exigências de GR, apenas gera aviso para conferência manual.
 """
 
 from __future__ import annotations
@@ -35,6 +39,16 @@ def classificar_mercadoria(mercadoria: str | None, params: Params) -> Classifica
 
     for especifica in params.mercadorias_especificas:
         if especifica.casa_com(descricao):
+            if not params.mercadorias_especificas_validadas:
+                return ClassificacaoMercadoria(
+                    tipo=TipoMercadoria.NAO_ESPECIFICA,
+                    match=None,
+                    confianca=params.confianca_classificador_deterministico,
+                    aviso=(
+                        f"Possível mercadoria específica ({especifica.item}), porém a lista ainda não foi "
+                        "validada com a corretora: confirmar o GR manualmente"
+                    ),
+                )
             return ClassificacaoMercadoria(
                 tipo=TipoMercadoria.ESPECIFICA,
                 match=especifica.item,
@@ -73,6 +87,7 @@ def verificar_elegibilidade(
 
     faixa = params.faixa_gr(valor_nf)
     exigencias = sorted(set(list(classificacao.exigencias) + list(faixa.exigencias if faixa else [])))
+    avisos = [classificacao.aviso] if classificacao.aviso else []
 
     if classificacao.confianca < CONFIANCA_MINIMA:
         return ElegibilidadeResult(
@@ -81,6 +96,7 @@ def verificar_elegibilidade(
             classificacao_mercadoria=TipoMercadoria.REVISAR,
             faixa_gr=faixa.faixa if faixa else None,
             exigencias_gr=exigencias,
+            avisos=avisos,
         )
 
     return ElegibilidadeResult(
@@ -89,4 +105,5 @@ def verificar_elegibilidade(
         classificacao_mercadoria=classificacao.tipo,
         faixa_gr=faixa.faixa if faixa else None,
         exigencias_gr=exigencias,
+        avisos=avisos,
     )

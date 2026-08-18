@@ -35,13 +35,20 @@ def calcular_custo(km: float, eixos: int, fracao: float, modalidade: str, params
 
 
 def calcular_preco(custo_total: float, params: Params) -> dict[str, float]:
-    """Piso de lucro absoluto manda: em carga barata o mínimo puxa alvo e máximo para cima."""
+    """Piso de lucro absoluto manda: em carga barata o mínimo puxa alvo e máximo para cima.
+
+    O máximo nunca colapsa no mínimo: guarda ao menos folga_maximo_sobre_minimo de banda
+    de negociação acima do piso.
+    """
     preco_minimo = max(
         custo_total + params.lucro_minimo_viagem,
         custo_total * (1 + params.margem_minima),
     )
     preco_alvo = max(custo_total * (1 + params.margem_alvo), preco_minimo)
-    preco_maximo = max(custo_total * (1 + params.margem_maxima), preco_alvo)
+    preco_maximo = max(
+        custo_total * (1 + params.margem_maxima),
+        preco_minimo * (1 + params.folga_maximo_sobre_minimo),
+    )
 
     return {
         "preco_minimo": round(preco_minimo, 2),

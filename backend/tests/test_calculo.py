@@ -51,7 +51,7 @@ CENARIOS = [
             "custo_total": 1613.73,
             "preco_minimo": 2413.73,
             "preco_alvo": 2413.73,
-            "preco_maximo": 2413.73,
+            "preco_maximo": 2534.41,
         },
     },
     {
@@ -96,7 +96,7 @@ CENARIOS = [
             "custo_total": 432.37,
             "preco_minimo": 1232.37,
             "preco_alvo": 1232.37,
-            "preco_maximo": 1232.37,
+            "preco_maximo": 1293.99,
         },
     },
     {
@@ -115,7 +115,7 @@ CENARIOS = [
             "custo_total": 1535.48,
             "preco_minimo": 2335.48,
             "preco_alvo": 2335.48,
-            "preco_maximo": 2335.48,
+            "preco_maximo": 2452.26,
         },
     },
     {
@@ -134,7 +134,7 @@ CENARIOS = [
             "custo_total": 1566.49,
             "preco_minimo": 2366.49,
             "preco_alvo": 2366.49,
-            "preco_maximo": 2366.49,
+            "preco_maximo": 2484.81,
         },
     },
     {
@@ -249,7 +249,7 @@ CENARIOS = [
             "custo_total": 2515.2,
             "preco_minimo": 3315.2,
             "preco_alvo": 3315.2,
-            "preco_maximo": 3315.2,
+            "preco_maximo": 3480.96,
         },
     },
     {
@@ -288,7 +288,7 @@ CENARIOS = [
             "custo_total": 75.89,
             "preco_minimo": 875.89,
             "preco_alvo": 875.89,
-            "preco_maximo": 875.89,
+            "preco_maximo": 919.69,
         },
     },
     {
@@ -307,7 +307,7 @@ CENARIOS = [
             "custo_total": 564.64,
             "preco_minimo": 1364.64,
             "preco_alvo": 1364.64,
-            "preco_maximo": 1364.64,
+            "preco_maximo": 1432.87,
         },
     },
     {
@@ -326,7 +326,7 @@ CENARIOS = [
             "custo_total": 483.24,
             "preco_minimo": 1283.24,
             "preco_alvo": 1283.24,
-            "preco_maximo": 1283.24,
+            "preco_maximo": 1347.4,
         },
     },
     {
@@ -345,7 +345,7 @@ CENARIOS = [
             "custo_total": 1156.99,
             "preco_minimo": 1956.99,
             "preco_alvo": 1956.99,
-            "preco_maximo": 1956.99,
+            "preco_maximo": 2054.84,
         },
     },
     {
@@ -364,7 +364,7 @@ CENARIOS = [
             "custo_total": 1058.44,
             "preco_minimo": 1858.44,
             "preco_alvo": 1858.44,
-            "preco_maximo": 1858.44,
+            "preco_maximo": 1951.36,
         },
     },
     {
@@ -383,7 +383,7 @@ CENARIOS = [
             "custo_total": 1879.35,
             "preco_minimo": 2679.35,
             "preco_alvo": 2679.35,
-            "preco_maximo": 2679.35,
+            "preco_maximo": 2813.32,
         },
     },
     {
@@ -402,7 +402,7 @@ CENARIOS = [
             "custo_total": 1791.82,
             "preco_minimo": 2591.82,
             "preco_alvo": 2591.82,
-            "preco_maximo": 2591.82,
+            "preco_maximo": 2721.41,
         },
     },
     {
@@ -421,7 +421,7 @@ CENARIOS = [
             "custo_total": 3005.06,
             "preco_minimo": 3805.06,
             "preco_alvo": 3805.06,
-            "preco_maximo": 3906.58,
+            "preco_maximo": 3995.32,
         },
     },
     {
@@ -440,7 +440,7 @@ CENARIOS = [
             "custo_total": 2202.41,
             "preco_minimo": 3002.41,
             "preco_alvo": 3002.41,
-            "preco_maximo": 3002.41,
+            "preco_maximo": 3152.53,
         },
     },
     {
@@ -459,7 +459,7 @@ CENARIOS = [
             "custo_total": 1449.07,
             "preco_minimo": 2249.07,
             "preco_alvo": 2249.07,
-            "preco_maximo": 2249.07,
+            "preco_maximo": 2361.52,
         },
     },
     {
@@ -478,7 +478,7 @@ CENARIOS = [
             "custo_total": 2850.43,
             "preco_minimo": 3650.43,
             "preco_alvo": 3650.43,
-            "preco_maximo": 3705.56,
+            "preco_maximo": 3832.96,
         },
     },
     {
@@ -501,7 +501,6 @@ CENARIOS = [
         },
     },
 ]
-
 
 def _cotar(cenario, params):
     carga = Carga(
@@ -538,11 +537,14 @@ def test_cenario_de_aceitacao(cenario, params):
 
 @pytest.mark.parametrize("cenario", CENARIOS, ids=lambda c: c["nome"])
 def test_precos_nunca_invertem(cenario, params):
+    """Mínimo <= alvo <= máximo, e o máximo sempre guarda banda de negociação."""
     cotacao = _cotar(cenario, params)
     if cotacao.status.value == "SEM_VEICULO":
         return
     assert cotacao.custo_total < cotacao.preco_minimo
     assert cotacao.preco_minimo <= cotacao.preco_alvo <= cotacao.preco_maximo
+    banda_minima = cotacao.preco_minimo * (1 + params.folga_maximo_sobre_minimo)
+    assert cotacao.preco_maximo >= banda_minima - TOLERANCIA_REAIS
 
 
 @pytest.mark.parametrize("cenario", CENARIOS, ids=lambda c: c["nome"])
@@ -601,7 +603,19 @@ def test_preco_de_carga_barata_e_puxado_pelo_lucro_minimo(params):
     precos = calcular_preco(1000.0, params)
     assert precos["preco_minimo"] == pytest.approx(1800.0)
     assert precos["preco_alvo"] == pytest.approx(1800.0)
-    assert precos["preco_maximo"] == pytest.approx(1800.0)
+    assert precos["preco_maximo"] == pytest.approx(1890.0)
+
+
+def test_maximo_de_carga_barata_guarda_banda_sobre_o_minimo(params):
+    """custo x 1,30 fica abaixo do piso de lucro: o máximo vira mínimo + 5%."""
+    precos = calcular_preco(1000.0, params)
+    assert precos["preco_maximo"] == pytest.approx(precos["preco_minimo"] * 1.05)
+    assert precos["preco_maximo"] > precos["preco_alvo"]
+
+
+def test_folga_do_maximo_vem_do_yaml(params):
+    params_folga = params.__class__(**{**params.__dict__, "folga_maximo_sobre_minimo": 0.20})
+    assert calcular_preco(1000.0, params_folga)["preco_maximo"] == pytest.approx(2160.0)
 
 
 def test_preco_de_carga_cara_usa_as_margens(params):

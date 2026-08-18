@@ -136,3 +136,24 @@ def test_extrair_texto_bruto_ainda_nao_implementado(cliente):
 
 def test_extrair_rejeita_uf_invalida(cliente):
     assert cliente.post("/api/extrair", json={"persistir": False, "itens": [_anuncio(origem_uf="XX")]}).status_code == 422
+
+
+def test_calcular_avisa_sobre_lista_de_especificas_nao_validada(cliente):
+    corpo = cliente.post(
+        "/api/calcular",
+        json={"distancia_km": 700, "peso_kg": 4000, "cubagem_m3": 30.0, "valor_nf": 250000, "mercadoria": "celulares"},
+    ).json()
+    assert corpo["elegibilidade"]["classificacao_mercadoria"] == "NAO_ESPECIFICA"
+    assert any("não foi validada com a corretora" in aviso for aviso in corpo["elegibilidade"]["avisos"])
+
+
+def test_extrair_leva_o_aviso_para_os_alertas(cliente):
+    corpo = cliente.post(
+        "/api/extrair", json={"persistir": False, "itens": [_anuncio(mercadoria="notebooks e monitores")]}
+    ).json()
+    assert any("não foi validada com a corretora" in alerta for alerta in corpo["oportunidades"][0]["alertas"])
+
+
+def test_premissas_expoe_o_estado_da_lista_nao_validada(cliente):
+    corpo = cliente.get("/api/premissas").json()
+    assert corpo["mercadorias_especificas_validadas"] is False

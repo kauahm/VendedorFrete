@@ -54,12 +54,33 @@ def test_exclusao_ignora_acento_e_caixa(params):
     assert classificar_mercadoria("Molibdênio em barras", params).tipo == TipoMercadoria.EXCLUIDA
 
 
-def test_mercadoria_especifica_traz_exigencias(params):
+def test_lista_nao_validada_nao_altera_elegibilidade(params):
+    """NÃO-VALIDADO: match na lista de específicas só avisa, não muda status nem GR."""
+    assert params.mercadorias_especificas_validadas is False
     resultado = verificar_elegibilidade(_oportunidade(mercadoria="celulares e notebooks", valor_nf=300000), params)
+    assert resultado.status.value == "APROVADA"
+    assert resultado.classificacao_mercadoria == TipoMercadoria.NAO_ESPECIFICA
+    assert resultado.exigencias_gr == ["ACL", "rastreamento"]
+    assert "isca" not in resultado.exigencias_gr
+    assert any("não foi validada com a corretora" in aviso for aviso in resultado.avisos)
+
+
+def test_mercadoria_especifica_traz_exigencias_quando_a_lista_for_validada(params):
+    params_validados = params.__class__(**{**params.__dict__, "mercadorias_especificas_validadas": True})
+    resultado = verificar_elegibilidade(
+        _oportunidade(mercadoria="celulares e notebooks", valor_nf=300000), params_validados
+    )
     assert resultado.status.value == "APROVADA"
     assert resultado.classificacao_mercadoria == TipoMercadoria.ESPECIFICA
     assert "isca" in resultado.exigencias_gr
     assert "ACL" in resultado.exigencias_gr
+    assert resultado.avisos == []
+
+
+def test_exclusoes_da_apolice_continuam_valendo_com_a_lista_desligada(params):
+    """O flag cobre só as específicas: as exclusões da apólice são validadas e seguem recusando."""
+    resultado = verificar_elegibilidade(_oportunidade(mercadoria="carga de cigarros"), params)
+    assert resultado.status.value == "RECUSADA"
 
 
 def test_mercadoria_comum_e_nao_especifica(params):

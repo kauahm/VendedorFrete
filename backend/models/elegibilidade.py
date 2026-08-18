@@ -24,6 +24,7 @@ class ClassificacaoMercadoria(BaseModel):
     match: str | None = None
     confianca: float
     exigencias: list[str] = []
+    aviso: str | None = None
 
 
 class ElegibilidadeResult(BaseModel):
@@ -32,6 +33,7 @@ class ElegibilidadeResult(BaseModel):
     classificacao_mercadoria: TipoMercadoria | None = None
     faixa_gr: str | None = None
     exigencias_gr: list[str] = []
+    avisos: list[str] = []
 
     @property
     def calcula(self) -> bool:

@@ -5,6 +5,7 @@ lucro_minimo_viagem: 800  # R$ - piso absoluto por viagem
 margem_minima: 0.20
 margem_alvo: 0.25
 margem_maxima: 0.30
+folga_maximo_sobre_minimo: 0.05  # banda mínima de negociação acima do piso em carga barata
 
 fatores_faixa_distancia:
   - { de: 0, ate: 100, fator: 1.35, nome: "curta" }
@@ -16,6 +17,9 @@ corte_dedicado_fracao: 0.70  # VALIDAR com o dono: acima disso a carga vira dedi
 
 densidade_estimada_kg_m3: 300  # VALIDAR: usado so quando a cubagem nao vem no anuncio
 confianca_classificador_deterministico: 0.85  # VALIDAR: confianca do matcher sem IA
+mercadorias_especificas_validadas: false  # NAO-VALIDADO: lista pendente de revisao com a corretora.
+                                          # Enquanto false, a lista nao altera status nem exigencias
+                                          # de elegibilidade - so gera aviso informativo.
 
 # Seguro / apolice
 lmg_maximo: 1000000  # R$ por embarque/veiculo/viagem

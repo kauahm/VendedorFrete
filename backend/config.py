@@ -72,9 +72,11 @@ class Params:
     margem_minima: float
     margem_alvo: float
     margem_maxima: float
+    folga_maximo_sobre_minimo: float
     corte_dedicado_fracao: float
     densidade_estimada_kg_m3: float
     confianca_classificador_deterministico: float
+    mercadorias_especificas_validadas: bool
     lmg_maximo: float
     apolice_numero: str
     apolice_vigencia_fim: str
@@ -191,9 +193,11 @@ def carregar_params(data_dir: Path | str = DATA_DIR) -> Params:
         margem_minima=float(premissas["margem_minima"]),
         margem_alvo=float(premissas["margem_alvo"]),
         margem_maxima=float(premissas["margem_maxima"]),
+        folga_maximo_sobre_minimo=float(premissas["folga_maximo_sobre_minimo"]),
         corte_dedicado_fracao=float(premissas["corte_dedicado_fracao"]),
         densidade_estimada_kg_m3=float(premissas["densidade_estimada_kg_m3"]),
         confianca_classificador_deterministico=float(premissas["confianca_classificador_deterministico"]),
+        mercadorias_especificas_validadas=bool(premissas["mercadorias_especificas_validadas"]),
         lmg_maximo=float(premissas["lmg_maximo"]),
         apolice_numero=str(premissas["apolice_numero"]),
         apolice_vigencia_fim=str(premissas["apolice_vigencia_fim"]),
@@ -216,6 +220,8 @@ def validar_params(params: Params) -> None:
         raise ValueError("tabela_antt deve ser 'A' ou 'B'")
     if not (params.margem_minima <= params.margem_alvo <= params.margem_maxima):
         raise ValueError("margens devem obedecer minima <= alvo <= maxima")
+    if params.folga_maximo_sobre_minimo < 0:
+        raise ValueError("folga_maximo_sobre_minimo não pode ser negativa")
     if not 0 < params.corte_dedicado_fracao <= 1:
         raise ValueError("corte_dedicado_fracao deve estar entre 0 e 1")
     if not params.frota:
