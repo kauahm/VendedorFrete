@@ -51,6 +51,9 @@ backend/
 └── tests/                  # 208 testes
 ```
 
+CI: `.github/workflows/backend.yml` roda a suíte a cada push ou PR que toque
+`jcn-freight/backend/`.
+
 ## Onde ficam os números
 
 Todos em `backend/data/*.yaml`, editáveis pelo dono do negócio sem tocar em código.
